@@ -3,7 +3,6 @@
 
 # In[ ]:
 
-
 # 任意选一个你喜欢的整数，这能帮你得到稳定的结果
 seed = 9999
 
@@ -20,8 +19,7 @@ seed = 9999
 # 
 # ## 1.1 创建一个 4*4 的单位矩阵
 
-# In[ ]:
-
+# In[14]:
 
 # 这个项目设计来帮你熟悉 python list 和线性代数
 # 你不能调用任何NumPy以及相关的科学计算库来完成作业
@@ -37,16 +35,15 @@ B = [[1, 2, 3, 5],
      [1, 2, 5, 1]]
 
 #TODO 创建一个 4*4 单位矩阵
-I = [[4, 2, 3, 5],
-     [1, 2, 4, 1],
-     [2, 4, 3, 5],
-     [1, 2, 5, 4]]
+I = [[1, 0, 0, 0],
+     [0, 1, 0, 0],
+     [0, 0, 1, 0],
+     [0, 0, 0, 1]]
 
 
 # ## 1.2 返回矩阵的行数和列数
 
-# In[ ]:
-
+# In[15]:
 
 # TODO 返回矩阵的行数和列数
 def shape(M):
@@ -57,101 +54,100 @@ def shape(M):
     return row, column
 
 
-# In[ ]:
-
+# In[16]:
 
 # 运行以下代码测试你的 shape 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_shape')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_shape')
 
 
 # ## 1.3 每个元素四舍五入到特定小数数位
 
-# In[ ]:
-
+# In[17]:
 
 # TODO 每个元素四舍五入到特定小数数位
 # 直接修改参数矩阵，无返回值
 def matxRound(M, decPts=4):
-    x = 0
-    while x < len(M):
-        y = 0
-        while y < len(M[x]):
-            M[x][y] = round(M[x][y], decPts)
-            y += 1
-        x += 1
+    for x in M:
+        i = 0
+        for y in x:
+            x[i]=round(y, decPts)
+            i += 1
     pass
 
 
-# In[ ]:
-
+# In[18]:
 
 # 运行以下代码测试你的 matxRound 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_matxRound')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxRound')
 
 
 # ## 1.4 计算矩阵的转置
 
-# In[ ]:
-
+# In[19]:
 
 # TODO 计算矩阵的转置
 def transpose(M):
-    i = 0
-    while i < len(M[0]):
-        X = [M[0][i]]
-        j = 1
-        while j < len(M):
-            X.append(M[j][i])
-            j += 1
-        if i == 0:
-            Y = []
-        Y.append(X)
-        i += 1
-    return Y
+    #先用zip将原矩阵转置，然后使用将内容转为list，然后用[]将结果转化为正确的格式
+    return [list(col) for col in zip(*M)]
 
 
-# In[ ]:
-
+# In[20]:
 
 # 运行以下代码测试你的 transpose 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_transpose')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_transpose')
 
 
 # ## 1.5 计算矩阵乘法 AB
 
-# In[ ]:
-
+# In[13]:
 
 # TODO 计算矩阵乘法 AB，如果无法相乘则raise ValueError
 def matxMultiply(A, B):
+    result = []
+    count = 0
+    while count < len(A):
+        result.append([0])
+        result[count].append(0)
+        count += 1
     try:
-        result = []
-        if len(A) != len(B[0]):
-            raise ValueError
-        r = 0
-        while r < len(A):
-            C = []
-            rb = 0
-            while rb < len(A):
-                c = 0
-                X = 0
-                while c < len(A[r]):
-                    X += A[r][c] * B[c][rb]
-                    c += 1
-                C.append(X)
-                rb += 1
-            result.append(C)
-            r += 1
-        return result
-    except ValueError:
-        return None
+        # if len(A) == 0 or len(A[0]) != len(B):
+        #     raise ValueError
+        # A的行数即结果行数和列数
+        resultRowCount = 0
+        while resultRowCount < len(A):
+            resultColumnCount = 0
+            # 新建行容器
+            resultColumn = []
+            while resultColumnCount < len(A):
+                sum = 0
+                index = 0
+                # 获取相应乘积并求和
+                while index < len(B):
+                    sum += A[resultRowCount][index] * B[index][resultColumnCount]
+                    index += 1
+                result[resultColumnCount][index] = sum
+                resultColumnCount += 1
+                # resultColumn.append(sum)
+            resultRowCount += 1
+            # result.append(resultColumn)
+    except IndexError:
+        return "Matrix A\'s column number doesn\'t equal to Matrix b\'s row number"
+    else:
+        strResult = str(result).replace('], [', ']\n [')
+        strResult = strResult.replace(',', '')
+        return strResult
+'''导师辛苦！
+   这部分，包括1.5矩阵乘法，2.1增广矩阵，
+   我并不知道如何输出numpy计算结果的格式，
+   因此这两部分答案都是错的，提交仅仅是希望导师给予指教，
+   非常感谢！
+'''
 
 
-# In[ ]:
-
+# In[14]:
 
 # 运行以下代码测试你的 matxMultiply 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_matxMultiply')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxMultiply')
 
 
 # ---
@@ -181,23 +177,24 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 #     ...    & ... & ... & ...& ...\\
 #     a_{n1}    & a_{n2} & ... & a_{nn} & b_{n} \end{bmatrix}$
 
-# In[ ]:
-
+# In[17]:
 
 # TODO 构造增广矩阵，假设A，b行数相同
 def augmentMatrix(A, b):
-    i = 0
-    while i < len(A):
+    i=0
+    while i<len(b):
         A[i].append(b[i])
-        i += 1
+        i+=1
     return A
+'''此处结果错误原因同1.5矩阵乘法，导师可不予审批
+   非常感谢！
+'''
 
 
-# In[ ]:
-
+# In[18]:
 
 # 运行以下代码测试你的 augmentMatrix 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_augmentMatrix')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_augmentMatrix')
 
 
 # ## 2.2 初等行变换
@@ -205,8 +202,7 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 # - 把某行乘以一个非零常数
 # - 把某行加上另一行的若干倍：
 
-# In[ ]:
-
+# In[19]:
 
 # TODO r1 <---> r2
 # 直接修改参数矩阵，无返回值
@@ -217,36 +213,37 @@ def swapRows(M, r1, r2):
     pass
 
 
-# In[ ]:
-
+# In[20]:
 
 # 运行以下代码测试你的 swapRows 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_swapRows')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_swapRows')
 
 
-# In[ ]:
-
+# In[25]:
 
 # TODO r1 <--- r1 * scale
 # scale为0是非法输入，要求 raise ValueError
 # 直接修改参数矩阵，无返回值
 def scaleRow(M, r, scale):
-    i = 0
-    while i < len(M[r]):
-        M[r][i] = M[r][i] * scale
-        i += 1
-    pass
+    try:
+        if scale == 0:
+            raise ValueError
+        i = 0
+        while i < len(M[r]):
+            M[r][i] = M[r][i] * scale
+            i += 1
+        pass
+    finally:
+        pass
 
 
-# In[ ]:
-
+# In[26]:
 
 # 运行以下代码测试你的 scaleRow 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_scaleRow')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_scaleRow')
 
 
-# In[ ]:
-
+# In[27]:
 
 # TODO r1 <--- r1 + r2*scale
 # 直接修改参数矩阵，无返回值
@@ -258,11 +255,10 @@ def addScaledRow(M, r1, r2, scale):
     pass
 
 
-# In[ ]:
-
+# In[28]:
 
 # 运行以下代码测试你的 addScaledRow 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_addScaledRow')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_addScaledRow')
 
 
 # ## 2.3  Gaussian Jordan 消元法求解 Ax = b
@@ -294,7 +290,6 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 # 为了充分了解Gaussian Jordan消元法的计算流程，请根据Gaussian Jordan消元法，分别手动推演矩阵A为***可逆矩阵***，矩阵A为***奇异矩阵***两种情况。
 
 # In[ ]:
-
 
 # 不要修改这里！
 from helper import *
@@ -338,7 +333,6 @@ printInMatrixFormat(Ab,padding=4,truncating=0)
 
 # In[ ]:
 
-
 # 不要修改这里！
 A = generateMatrix(4,seed,singular=True)
 b = np.ones(shape=(4,1)) # it doesn't matter
@@ -381,8 +375,13 @@ printInMatrixFormat(Ab,padding=4,truncating=0)
 
 # In[ ]:
 
-
 # TODO 实现 Gaussain Jordan 方法求解 Ax = b
+'''此处逻辑并未实现，
+   导师可不予理会，
+   直接判不通过即可，
+   非常感谢
+'''
+
 
 """ Gaussian Jordan 方法求解 Ax = b.
     参数
@@ -443,9 +442,8 @@ def gj_Solve(A, b, decPts=4, epsilon = 1.0e-16):
 
 # In[ ]:
 
-
 # 运行以下代码测试你的 gj_Solve 函数
-get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test_gj_Solve')
+get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_gj_Solve')
 
 
 # ## (选做) 2.4 算法正确判断了奇异矩阵：
@@ -478,12 +476,11 @@ get_ipython().run_line_magic('run', '-i -e test.py LinearRegressionTestCase.test
 
 # In[ ]:
 
-
 # 不要修改这里！
 # 运行一次就够了！
 from helper import *
 from matplotlib import pyplot as plt
-get_ipython().run_line_magic('matplotlib', 'inline')
+get_ipython().magic('matplotlib inline')
 
 X,Y = generatePoints(num=100)
 
@@ -500,7 +497,6 @@ plt.show()
 # ### 3.2.1 猜测一条直线
 
 # In[ ]:
-
 
 #TODO 请选择最适合的直线 y = mx + b
 m = 0
@@ -527,7 +523,6 @@ plt.show()
 # $$
 
 # In[ ]:
-
 
 # TODO 实现以下函数并输出所选直线的MSE
 
@@ -647,7 +642,6 @@ print(calculateMSE(X,Y,m,b))
 
 # In[ ]:
 
-
 # TODO 实现线性回归
 '''
 参数：X, Y
@@ -665,7 +659,6 @@ print(m,b)
 
 # In[ ]:
 
-
 # 请不要修改下面的代码
 x1,x2 = -5,5
 y1,y2 = x1*m+b, x2*m+b
@@ -680,3 +673,8 @@ plt.show()
 
 
 # 你求得的回归结果对当前数据集的MSE是多少？
+
+# In[ ]:
+
+
+
