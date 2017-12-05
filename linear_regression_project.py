@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[92]:
 
 # 任意选一个你喜欢的整数，这能帮你得到稳定的结果
 seed = 9999
@@ -19,7 +19,7 @@ seed = 9999
 # 
 # ## 1.1 创建一个 4*4 的单位矩阵
 
-# In[14]:
+# In[93]:
 
 # 这个项目设计来帮你熟悉 python list 和线性代数
 # 你不能调用任何NumPy以及相关的科学计算库来完成作业
@@ -43,7 +43,7 @@ I = [[1, 0, 0, 0],
 
 # ## 1.2 返回矩阵的行数和列数
 
-# In[15]:
+# In[94]:
 
 # TODO 返回矩阵的行数和列数
 def shape(M):
@@ -54,7 +54,7 @@ def shape(M):
     return row, column
 
 
-# In[16]:
+# In[95]:
 
 # 运行以下代码测试你的 shape 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_shape')
@@ -62,20 +62,18 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_shape')
 
 # ## 1.3 每个元素四舍五入到特定小数数位
 
-# In[17]:
+# In[96]:
 
 # TODO 每个元素四舍五入到特定小数数位
 # 直接修改参数矩阵，无返回值
 def matxRound(M, decPts=4):
-    for x in M:
-        i = 0
-        for y in x:
-            x[i]=round(y, decPts)
-            i += 1
+    for x in range(len(M)):
+        for y in range(len(M[0])):
+            M[x][y] = round(M[x][y] ,decPts)
     pass
 
 
-# In[18]:
+# In[97]:
 
 # 运行以下代码测试你的 matxRound 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxRound')
@@ -83,15 +81,15 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxRound')
 
 # ## 1.4 计算矩阵的转置
 
-# In[19]:
+# In[98]:
 
 # TODO 计算矩阵的转置
 def transpose(M):
-    #先用zip将原矩阵转置，然后使用将内容转为list，然后用[]将结果转化为正确的格式
+    #先用*将M拆开，然后用zip处理即可实现转置，然后使用list将结果转化为正确的格式
     return [list(col) for col in zip(*M)]
 
 
-# In[20]:
+# In[99]:
 
 # 运行以下代码测试你的 transpose 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_transpose')
@@ -99,52 +97,28 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_transpose')
 
 # ## 1.5 计算矩阵乘法 AB
 
-# In[13]:
+# In[100]:
 
 # TODO 计算矩阵乘法 AB，如果无法相乘则raise ValueError
 def matxMultiply(A, B):
+    if len(A) == 0 or len(A[0]) != len(B):
+        raise ValueError("Matrix A's column number doesn't equal to Matrix b's row number")
     result = []
-    count = 0
-    while count < len(A):
-        result.append([0])
-        result[count].append(0)
-        count += 1
-    try:
-        # if len(A) == 0 or len(A[0]) != len(B):
-        #     raise ValueError
-        # A的行数即结果行数和列数
-        resultRowCount = 0
-        while resultRowCount < len(A):
-            resultColumnCount = 0
-            # 新建行容器
-            resultColumn = []
-            while resultColumnCount < len(A):
-                sum = 0
-                index = 0
-                # 获取相应乘积并求和
-                while index < len(B):
-                    sum += A[resultRowCount][index] * B[index][resultColumnCount]
-                    index += 1
-                result[resultColumnCount][index] = sum
-                resultColumnCount += 1
-                # resultColumn.append(sum)
-            resultRowCount += 1
-            # result.append(resultColumn)
-    except IndexError:
-        return "Matrix A\'s column number doesn\'t equal to Matrix b\'s row number"
-    else:
-        strResult = str(result).replace('], [', ']\n [')
-        strResult = strResult.replace(',', '')
-        return strResult
-'''导师辛苦！
-   这部分，包括1.5矩阵乘法，2.1增广矩阵，
-   我并不知道如何输出numpy计算结果的格式，
-   因此这两部分答案都是错的，提交仅仅是希望导师给予指教，
-   非常感谢！
-'''
+    x = 0
+    for a in A:
+        for b in zip(*B):
+            sum = 0
+            for i in range(len(a)):
+                sum += a[i] * b[i]
+            if x != len(result)-1:
+                result.append([sum])
+            else:
+                result[x].append(sum)
+        x += 1
+    return result
 
 
-# In[14]:
+# In[101]:
 
 # 运行以下代码测试你的 matxMultiply 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxMultiply')
@@ -177,21 +151,14 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxMultipl
 #     ...    & ... & ... & ...& ...\\
 #     a_{n1}    & a_{n2} & ... & a_{nn} & b_{n} \end{bmatrix}$
 
-# In[17]:
+# In[102]:
 
 # TODO 构造增广矩阵，假设A，b行数相同
 def augmentMatrix(A, b):
-    i=0
-    while i<len(b):
-        A[i].append(b[i])
-        i+=1
-    return A
-'''此处结果错误原因同1.5矩阵乘法，导师可不予审批
-   非常感谢！
-'''
+    return [list(x + y) for x, y in zip(A, b)]
 
 
-# In[18]:
+# In[103]:
 
 # 运行以下代码测试你的 augmentMatrix 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_augmentMatrix')
@@ -202,60 +169,51 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_augmentMatr
 # - 把某行乘以一个非零常数
 # - 把某行加上另一行的若干倍：
 
-# In[19]:
+# In[104]:
 
 # TODO r1 <---> r2
 # 直接修改参数矩阵，无返回值
 def swapRows(M, r1, r2):
-    N = M[r1]
-    M[r1] = M[r2]
-    M[r2] = N
+    M[r1],M[r2]=M[r2],M[r1]
     pass
 
 
-# In[20]:
+# In[105]:
 
 # 运行以下代码测试你的 swapRows 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_swapRows')
 
 
-# In[25]:
+# In[106]:
 
 # TODO r1 <--- r1 * scale
 # scale为0是非法输入，要求 raise ValueError
 # 直接修改参数矩阵，无返回值
 def scaleRow(M, r, scale):
-    try:
-        if scale == 0:
-            raise ValueError
-        i = 0
-        while i < len(M[r]):
-            M[r][i] = M[r][i] * scale
-            i += 1
-        pass
-    finally:
-        pass
+    if scale==0:
+        raise ValueError('Value Error')
+    for i in range(len(M[r])):
+        M[r][i]*=scale
+    pass
 
 
-# In[26]:
+# In[107]:
 
 # 运行以下代码测试你的 scaleRow 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_scaleRow')
 
 
-# In[27]:
+# In[108]:
 
 # TODO r1 <--- r1 + r2*scale
 # 直接修改参数矩阵，无返回值
 def addScaledRow(M, r1, r2, scale):
-    i = 0
-    while i < len(M[r2]):
-        M[r1][i] = M[r1][i] + M[r2][i] * scale
-        i += 1
+    for i in range(len(M[r1])):
+        M[r1][i]+=M[r2][i]*scale
     pass
 
 
-# In[28]:
+# In[109]:
 
 # 运行以下代码测试你的 addScaledRow 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_addScaledRow')
@@ -289,7 +247,7 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_addScaledRo
 # 
 # 为了充分了解Gaussian Jordan消元法的计算流程，请根据Gaussian Jordan消元法，分别手动推演矩阵A为***可逆矩阵***，矩阵A为***奇异矩阵***两种情况。
 
-# In[ ]:
+# In[110]:
 
 # 不要修改这里！
 from helper import *
@@ -331,7 +289,7 @@ printInMatrixFormat(Ab,padding=4,truncating=0)
 #     
 # $...$
 
-# In[ ]:
+# In[111]:
 
 # 不要修改这里！
 A = generateMatrix(4,seed,singular=True)
@@ -373,15 +331,9 @@ printInMatrixFormat(Ab,padding=4,truncating=0)
 
 # ### 2.3.3 实现 Gaussian Jordan 消元法
 
-# In[ ]:
+# In[114]:
 
 # TODO 实现 Gaussain Jordan 方法求解 Ax = b
-'''此处逻辑并未实现，
-   导师可不予理会，
-   直接判不通过即可，
-   非常感谢
-'''
-
 
 """ Gaussian Jordan 方法求解 Ax = b.
     参数
@@ -396,51 +348,48 @@ printInMatrixFormat(Ab,padding=4,truncating=0)
 """
 
 def gj_Solve(A, b, decPts=4, epsilon = 1.0e-16):
-    if len(A) != len(B):
+    # 如果 A，b 高度不同，返回None
+    if len(A) != len(b):
         return None
-    A = augmentMatrix(A, b)
-    i = 0
-    while i < len(A):
-        if A[i][i] == 0:
-            j = 1
-            swaped = False
-            while j < len(A):
-                if [j][i] != 0:
-                    swapRows(A, i, j)
-                    swaped = True
+    # 创建增广矩阵
+    R = augmentMatrix(A, b)
+    # 构建阶梯型矩阵，最后一行无需单独处理，但参与置换消除等
+    for i in range(len(R)):
+        # 对角线上元素为零，则与下面行置换
+        if R[i][i] == 0:
+            for j in range(i + 1, len(R)):
+                if R[i][j] != 0:
+                    swapRows(R, i, j)
+                else:
                     break
-                j += 1
-            if not swaped:
-                return None
-        j = 0
-        while j < i - 1:
-            if A[i][j] != 0:
-                k = i
-                while k < len(A):
-                    A[i][k] = A[i][k] - A[i][k] / A[i][j]
-                    k += 1
-                break
-            j += 1
-        if A[i][i] != 0:
-            scaleRow(A, i, 1 / A[i][i])
-        else:
+        # 置换完成后，如果对角线元素仍为零，证明为奇异矩阵，返回None
+        if R[i][i] == 0:
             return None
-        i += 1
-    while i > 0:
-        i -= 1
-        j = len(A) - 1
-        while j > i:
-            if A[i][j] != 0:
-                k = len(A)
-                while k > j:
-                    A[i][k] = A[i][k] - A[i][k] / A[i][j]
-                    k += 1
-                break
-            j -= 1
-    return A
+        # 消除对角线以外元素
+        for j in range(len(R)):
+            # 如果是当前行或已经为0，则跳过
+            if j == i or R[j][i] == 0:
+                continue
+            else:
+                for k in range(len(R[0])):
+                    # 当前列不做处理
+                    if k!=i:
+                        R[j][k] = R[j][k] * R[i][i] - R[i][k] * R[j][i]
+                # 当前列直接赋值为0
+                R[j][i] = 0
+    for i in range(len(R)):
+        if R[i][i] == 0:
+            return None
+        if R[i][i] != 1:
+            R[i][len(R)] = round(R[i][len(R)] / R[i][i], decPts)
+            R[i][i] = 1
+    return [[R[r][len(R)]] for r in range(len(R))]
+'''此处算法并未用到epsilon这个参数，而且这样做除了因为消除时用的乘法而非除法可能带来的特别大的数的问题，其他没什么问题，
+实在不清楚为什么报了奇异矩阵的错误，还望导师给予指导，非常感谢！
+'''
 
 
-# In[ ]:
+# In[115]:
 
 # 运行以下代码测试你的 gj_Solve 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_gj_Solve')
