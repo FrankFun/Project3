@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[92]:
+# In[1]:
 
 # 任意选一个你喜欢的整数，这能帮你得到稳定的结果
 seed = 9999
@@ -19,7 +19,7 @@ seed = 9999
 # 
 # ## 1.1 创建一个 4*4 的单位矩阵
 
-# In[93]:
+# In[2]:
 
 # 这个项目设计来帮你熟悉 python list 和线性代数
 # 你不能调用任何NumPy以及相关的科学计算库来完成作业
@@ -43,7 +43,7 @@ I = [[1, 0, 0, 0],
 
 # ## 1.2 返回矩阵的行数和列数
 
-# In[94]:
+# In[3]:
 
 # TODO 返回矩阵的行数和列数
 def shape(M):
@@ -54,7 +54,7 @@ def shape(M):
     return row, column
 
 
-# In[95]:
+# In[4]:
 
 # 运行以下代码测试你的 shape 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_shape')
@@ -62,7 +62,7 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_shape')
 
 # ## 1.3 每个元素四舍五入到特定小数数位
 
-# In[96]:
+# In[5]:
 
 # TODO 每个元素四舍五入到特定小数数位
 # 直接修改参数矩阵，无返回值
@@ -73,7 +73,7 @@ def matxRound(M, decPts=4):
     pass
 
 
-# In[97]:
+# In[6]:
 
 # 运行以下代码测试你的 matxRound 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxRound')
@@ -81,15 +81,15 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxRound')
 
 # ## 1.4 计算矩阵的转置
 
-# In[98]:
+# In[7]:
 
 # TODO 计算矩阵的转置
 def transpose(M):
-    #先用*将M拆开，然后用zip处理即可实现转置，然后使用list将结果转化为正确的格式
+    #先用*将M拆为tuple，然后用zip压缩，然后使用list将结果转化为正确的格式
     return [list(col) for col in zip(*M)]
 
 
-# In[99]:
+# In[8]:
 
 # 运行以下代码测试你的 transpose 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_transpose')
@@ -97,7 +97,7 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_transpose')
 
 # ## 1.5 计算矩阵乘法 AB
 
-# In[100]:
+# In[9]:
 
 # TODO 计算矩阵乘法 AB，如果无法相乘则raise ValueError
 def matxMultiply(A, B):
@@ -118,7 +118,7 @@ def matxMultiply(A, B):
     return result
 
 
-# In[101]:
+# In[10]:
 
 # 运行以下代码测试你的 matxMultiply 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxMultiply')
@@ -151,14 +151,14 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_matxMultipl
 #     ...    & ... & ... & ...& ...\\
 #     a_{n1}    & a_{n2} & ... & a_{nn} & b_{n} \end{bmatrix}$
 
-# In[102]:
+# In[11]:
 
 # TODO 构造增广矩阵，假设A，b行数相同
 def augmentMatrix(A, b):
     return [list(x + y) for x, y in zip(A, b)]
 
 
-# In[103]:
+# In[12]:
 
 # 运行以下代码测试你的 augmentMatrix 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_augmentMatrix')
@@ -169,7 +169,7 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_augmentMatr
 # - 把某行乘以一个非零常数
 # - 把某行加上另一行的若干倍：
 
-# In[104]:
+# In[13]:
 
 # TODO r1 <---> r2
 # 直接修改参数矩阵，无返回值
@@ -178,13 +178,13 @@ def swapRows(M, r1, r2):
     pass
 
 
-# In[105]:
+# In[14]:
 
 # 运行以下代码测试你的 swapRows 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_swapRows')
 
 
-# In[106]:
+# In[15]:
 
 # TODO r1 <--- r1 * scale
 # scale为0是非法输入，要求 raise ValueError
@@ -197,13 +197,13 @@ def scaleRow(M, r, scale):
     pass
 
 
-# In[107]:
+# In[16]:
 
 # 运行以下代码测试你的 scaleRow 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_scaleRow')
 
 
-# In[108]:
+# In[17]:
 
 # TODO r1 <--- r1 + r2*scale
 # 直接修改参数矩阵，无返回值
@@ -213,7 +213,7 @@ def addScaledRow(M, r1, r2, scale):
     pass
 
 
-# In[109]:
+# In[18]:
 
 # 运行以下代码测试你的 addScaledRow 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_addScaledRow')
@@ -247,7 +247,7 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_addScaledRo
 # 
 # 为了充分了解Gaussian Jordan消元法的计算流程，请根据Gaussian Jordan消元法，分别手动推演矩阵A为***可逆矩阵***，矩阵A为***奇异矩阵***两种情况。
 
-# In[110]:
+# In[19]:
 
 # 不要修改这里！
 from helper import *
@@ -270,26 +270,62 @@ printInMatrixFormat(Ab,padding=4,truncating=0)
 # 
 # 增广矩阵
 # $ Ab = \begin{bmatrix}
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\end{bmatrix}$
+#     7 & 5 & 3 & -5 & 1\\
+#     -4 & 6 & 2 & -2 & 1\\
+#     -9 & 4 & -5 & 9 & 1\\
+#     -9 & -10 & 5 & -4 & 1\end{bmatrix}$
 # 
 # $ --> \begin{bmatrix}
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\end{bmatrix}$
+#     -9 & 4 & -5 & 9 & 1\\
+#     -4 & 6 & 2 & -2 & 1\\
+#     7 & 5 & 3 & -5 & 1\\
+#     -9 & -10 & 5 & -4 & 1\end{bmatrix}$
 #     
 # $ --> \begin{bmatrix}
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\end{bmatrix}$
+#     1 & -\frac{4}{9} & \frac{5}{9} & -1 & -\frac{1}{9}\\
+#     -4 & 6 & 2 & -2 & 1\\
+#     7 & 5 & 3 & -5 & 1\\
+#     -9 & -10 & 5 & -4 & 1\end{bmatrix}$
+#     
+# $ --> \begin{bmatrix}
+#     1 & -\frac{4}{9} & \frac{5}{9} & -1 & -\frac{1}{9}\\
+#     0 & \frac{38}{9} & \frac{38}{9} & -6 & \frac{5}{9}\\
+#     0 & \frac{73}{9} & -\frac{8}{9} & 2 & \frac{16}{9}\\
+#     0 & -14 & 10 & -13 & 0\end{bmatrix}$ 
+#     
+# $ --> \begin{bmatrix}
+#     1 & -\frac{4}{9} & \frac{5}{9} & -1 & -\frac{1}{9}\\
+#     0 & -14 & 10 & -13 & 0\\
+#     0 & \frac{73}{9} & -\frac{8}{9} & 2 & \frac{16}{9}\\
+#     0 & \frac{38}{9} & \frac{38}{9} & 2 & \frac{5}{9}\end{bmatrix}$ 
+#     
+# $ --> \begin{bmatrix}
+#     1 & -\frac{4}{9} & \frac{5}{9} & -1 & -\frac{1}{9}\\
+#     0 & 1 & -\frac{5}{7} & \frac{13}{14} & 0\\
+#     0 & \frac{73}{9} & -\frac{8}{9} & 2 & \frac{16}{9}\\
+#     0 & \frac{38}{9} & \frac{38}{9} & 2 & \frac{5}{9}\end{bmatrix}$ 
+#     
+# $ --> \begin{bmatrix}
+#     1 & 0 & \frac{5}{21} & -\frac{37}{63} & -\frac{1}{9}\\
+#     0 & 1 & -\frac{5}{7} & \frac{13}{14} & 0\\
+#     0 & 0 & \frac{103}{21} &  -\frac{697}{126}  & \frac{16}{9}\\
+#     0 & 0 & \frac{152}{21} &-\frac{625}{63} & \frac{5}{9} \end{bmatrix}$  
+#     
+# $ --> \begin{bmatrix}
+#     1 & 0 & \frac{5}{21} & -\frac{37}{63} & -\frac{1}{9}\\
+#     0 & 1 & -\frac{10}{14} & \frac{13}{14} & 0\\
+#     0 & 0 & \frac{152}{21} &-\frac{625}{63} & \frac{5}{9}\\
+#     0 & 0 & \frac{103}{21} &  -\frac{697}{126}  & \frac{16}{9}\end{bmatrix}$   
+#     
+# $ --> \begin{bmatrix}
+#     1 & 0 & \frac{5}{21} & -\frac{37}{63} & -\frac{1}{9}\\
+#     0 & 1 & -\frac{10}{14} & \frac{13}{14} & 0\\
+#     0 & 0 & 1 &-\frac{625}{456} & \frac{35}{456}\\
+#     0 & 0 & \frac{103}{21} &  -\frac{697}{126}  & \frac{16}{9}\end{bmatrix}$ 
 #     
 # $...$
 
-# In[111]:
+# In[20]:
 
 # 不要修改这里！
 A = generateMatrix(4,seed,singular=True)
@@ -310,28 +346,28 @@ printInMatrixFormat(Ab,padding=4,truncating=0)
 # 
 # 增广矩阵
 # $ Ab = \begin{bmatrix}
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\end{bmatrix}$
+#     -7 & -3 & 1 & -9 & 1\\
+#     0 & 0 & 0 & 0 & 1\\
+#     -2 & 7 & 7 & -3 & 1\\
+#     8 & -5 & -6 & 3 & 1\end{bmatrix}$
 # 
 # $ --> \begin{bmatrix}
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\end{bmatrix}$
+#     8 & -5 & -6 & 3 & 1\\
+#     0 & 0 & 0 & 0 & 1\\
+#     -2 & 7 & 7 & -3 & 1\\
+#     -7 & -3 & 1 & -9 & 1\end{bmatrix}$
 #     
 # $ --> \begin{bmatrix}
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\\
-#     0 & 0 & 0 & 0 & 0\end{bmatrix}$
+#     1 & -\frac{5}{8} & -\frac{6}{8} & \frac{3}{8} & \frac{1}{8}\\
+#     -7 & -3 & 1 & -9 & 1\\
+#     0 & 0 & 0 & 0 & 1\\
+#     -2 & 7 & 7 & -3 & 1\end{bmatrix}$
 #     
 # $...$
 
 # ### 2.3.3 实现 Gaussian Jordan 消元法
 
-# In[114]:
+# In[21]:
 
 # TODO 实现 Gaussain Jordan 方法求解 Ax = b
 
@@ -355,41 +391,35 @@ def gj_Solve(A, b, decPts=4, epsilon = 1.0e-16):
     R = augmentMatrix(A, b)
     # 构建阶梯型矩阵，最后一行无需单独处理，但参与置换消除等
     for i in range(len(R)):
-        # 对角线上元素为零，则与下面行置换
-        if R[i][i] == 0:
-            for j in range(i + 1, len(R)):
-                if R[i][j] != 0:
-                    swapRows(R, i, j)
-                else:
-                    break
-        # 置换完成后，如果对角线元素仍为零，证明为奇异矩阵，返回None
-        if R[i][i] == 0:
+        # 寻找列c中 对角线以及对角线以下所有元素（行 c~N）的绝对值的最大值
+        abmax = 0;
+        which = i;
+        for j in range(i, len(R)):
+            if abs(abmax) < abs(R[j][i]):
+                abmax = R[j][i]
+                which = j
+        # 如果绝对值最大值为0
+        # 那么A为奇异矩阵，返回None (你可以在选做问题2.4中证明为什么这里A一定是奇异矩阵)
+        if abmax == 0:
             return None
-        # 消除对角线以外元素
+        # 否则
+        # 使用第一个行变换，将绝对值最大值所在行交换到对角线元素所在行（行c）
+        swapRows(R, i, which)
+        # 使用第二个行变换，将列c的对角线元素缩放为1
+        scaleRow(R, i, 1 / abmax)
+        # 多次使用第三个行变换，将列c的其他元素消为0
         for j in range(len(R)):
-            # 如果是当前行或已经为0，则跳过
-            if j == i or R[j][i] == 0:
-                continue
-            else:
-                for k in range(len(R[0])):
-                    # 当前列不做处理
-                    if k!=i:
-                        R[j][k] = R[j][k] * R[i][i] - R[i][k] * R[j][i]
-                # 当前列直接赋值为0
+            if j != i:
+                for k in range(i + 1, len(R[j])):
+                    R[j][k] = R[j][k] - R[i][k] * R[j][i]
+                    if abs(R[j][k]) < epsilon:
+                        R[j][k] = 0
                 R[j][i] = 0
-    for i in range(len(R)):
-        if R[i][i] == 0:
-            return None
-        if R[i][i] != 1:
-            R[i][len(R)] = round(R[i][len(R)] / R[i][i], decPts)
-            R[i][i] = 1
+    matxRound(R, decPts)
     return [[R[r][len(R)]] for r in range(len(R))]
-'''此处算法并未用到epsilon这个参数，而且这样做除了因为消除时用的乘法而非除法可能带来的特别大的数的问题，其他没什么问题，
-实在不清楚为什么报了奇异矩阵的错误，还望导师给予指导，非常感谢！
-'''
 
 
-# In[115]:
+# In[22]:
 
 # 运行以下代码测试你的 gj_Solve 函数
 get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_gj_Solve')
@@ -423,7 +453,7 @@ get_ipython().magic('run -i -e test.py LinearRegressionTestCase.test_gj_Solve')
 
 # ## 3.1 随机生成样本点
 
-# In[ ]:
+# In[23]:
 
 # 不要修改这里！
 # 运行一次就够了！
@@ -445,11 +475,11 @@ plt.show()
 # 
 # ### 3.2.1 猜测一条直线
 
-# In[ ]:
+# In[28]:
 
 #TODO 请选择最适合的直线 y = mx + b
-m = 0
-b = 0
+m =-3.3815
+b = 13.96
 
 # 不要修改这里！
 plt.xlim((-5,5))
@@ -471,12 +501,12 @@ plt.show()
 # MSE = \frac{1}{n}\sum_{i=1}^{n}{(y_i - mx_i - b)^2}
 # $$
 
-# In[ ]:
+# In[29]:
 
 # TODO 实现以下函数并输出所选直线的MSE
 
 def calculateMSE(X,Y,m,b):
-    return 0
+    return sum([(y-m*x-b)**2/len(X) for x in X for y in Y])
 
 print(calculateMSE(X,Y,m,b))
 
@@ -589,7 +619,7 @@ print(calculateMSE(X,Y,m,b))
 # 
 # 在3.3 中，我们知道线性回归问题等价于求解 $X^TXh = X^TY$ (如果你选择不做3.3，就勇敢的相信吧，哈哈)
 
-# In[ ]:
+# In[26]:
 
 # TODO 实现线性回归
 '''
@@ -597,7 +627,13 @@ print(calculateMSE(X,Y,m,b))
 返回：m，b
 '''
 def linearRegression(X,Y):
-    return None,None
+    Z=[]
+    M=[]
+    for i in range(len(X)):
+        Z.append([X[i],1])
+        M.append([Y[i]])
+    result=gj_Solve(matxMultiply(transpose(Z),Z),matxMultiply(transpose(Z),M))
+    return result[0][0],result[1][0]
 
 m,b = linearRegression(X,Y)
 print(m,b)
@@ -606,7 +642,7 @@ print(m,b)
 # 你求得的回归结果是什么？
 # 请使用运行以下代码将它画出来。
 
-# In[ ]:
+# In[27]:
 
 # 请不要修改下面的代码
 x1,x2 = -5,5
@@ -625,5 +661,5 @@ plt.show()
 
 # In[ ]:
 
-
+22145.680877014853
 
