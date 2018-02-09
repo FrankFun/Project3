@@ -318,18 +318,18 @@ printInMatrixFormat(Ab,padding=3,truncating=0)
 # 
 # $ --> \begin{bmatrix}
 #     1 & 1 & -\frac{4}{7} & \frac{1}{7} \\
-#     0 & 2 & \frac{47}{7} & -2 \\
-#     0 & 1 & -\frac{23}{7} & -2 \end{bmatrix}$
+#     0 & 2 & \frac{47}{7} & \frac{4}{7} \\
+#     0 & 1 & -\frac{23}{7} & \frac{4}{7} \end{bmatrix}$
 #     
 # $ --> \begin{bmatrix}
-#     1 & 0 & -\frac{55}{14} & \frac{8}{7} \\
-#     0 & 1 & \frac{47}{14} & -1 \\
-#     0 & 0 & -\frac{93}{14} & -1 \end{bmatrix}$
+#     1 & 0 & -\frac{55}{14} & -\frac{1}{7} \\
+#     0 & 1 & \frac{47}{14} & \frac{2}{7} \\
+#     0 & 0 & -\frac{93}{14} & \frac{2}{7} \end{bmatrix}$
 #     
 # $ --> \begin{bmatrix}
-#     1 & 0 &0 & \frac{1129}{651} \\
-#     0 & 1 & 0 & -\frac{140}{93} \\
-#     0 & 0 &1 & \frac{14}{93} \end{bmatrix}$
+#     1 & 0 &0 & -\frac{203}{651} \\
+#     0 & 1 & 0 & \frac{277}{651} \\
+#     0 & 0 &1 & -\frac{4}{93} \end{bmatrix}$
 #     
 
 # In[59]:
